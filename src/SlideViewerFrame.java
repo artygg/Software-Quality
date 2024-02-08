@@ -4,7 +4,7 @@ import java.awt.event.WindowAdapter;
 import javax.swing.JFrame;
 
 /**
- * <p>Het applicatiewindow voor een slideviewcomponent</p>
+ * <p>The application window for a slideviewcomponent</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -28,7 +28,7 @@ public class SlideViewerFrame extends JFrame {
 		setupWindow(slideViewerComponent, presentation);
 	}
 
-// De GUI opzetten
+// Setup GUI
 	public void setupWindow(SlideViewerComponent 
 			slideViewerComponent, Presentation presentation) {
 		setTitle(JABTITLE);
@@ -38,9 +38,9 @@ public class SlideViewerFrame extends JFrame {
 				}
 			});
 		getContentPane().add(slideViewerComponent);
-		addKeyListener(new KeyController(presentation)); // een controller toevoegen
-		setMenuBar(new MenuController(this, presentation));	// nog een controller toevoegen
-		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
+		addKeyListener(new KeyController(presentation)); // add a controller
+		setMenuBar(new MenuController(this, presentation));	// add another controller
+		setSize(new Dimension(WIDTH, HEIGHT)); // Same sizes as Slide has.
 		setVisible(true);
 	}
 }
