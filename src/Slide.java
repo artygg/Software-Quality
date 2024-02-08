@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
-/** <p>Een slide. Deze klasse heeft tekenfunctionaliteit.</p>
+/** <p>A slide. This class has a drawing functionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -16,53 +16,53 @@ import java.util.Vector;
 public class Slide {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
-	protected String title; // de titel wordt apart bewaard
-	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
+	protected String title; // title is saved separately
+	protected Vector<SlideItem> items; // slide items are saved in a Vector
 
 	public Slide() {
 		items = new Vector<SlideItem>();
 	}
 
-	// Voeg een SlideItem toe
+	// Add a slide item
 	public void append(SlideItem anItem) {
 		items.addElement(anItem);
 	}
 
-	// geef de titel van de slide
+	// give the title of the slide
 	public String getTitle() {
 		return title;
 	}
 
-	// verander de titel van de slide
+	// change the title of the slide
 	public void setTitle(String newTitle) {
 		title = newTitle;
 	}
 
-	// Maak een TextItem van String, en voeg het TextItem toe
+	// Create TextItem of String, and add the TextItem 
 	public void append(int level, String message) {
 		append(new TextItem(level, message));
 	}
 
-	// geef het betreffende SlideItem
+	// give the  SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
 	}
 
-	// geef alle SlideItems in een Vector
+	// give all SlideItems in a Vector
 	public Vector<SlideItem> getSlideItems() {
 		return items;
 	}
 
-	// geef de afmeting van de Slide
+	// give the size of the Slide
 	public int getSize() {
 		return items.size();
 	}
 
-	// teken de slide
+	// draw the slide
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;
-	// De titel wordt apart behandeld
+	// Title is handled separately
 	    SlideItem slideItem = new TextItem(0, getTitle());
 	    Style style = Style.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
@@ -75,7 +75,7 @@ public class Slide {
 	    }
 	  }
 
-	// geef de schaal om de slide te kunnen tekenen
+	// Give the scale for drawing
 	private float getScale(Rectangle area) {
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
