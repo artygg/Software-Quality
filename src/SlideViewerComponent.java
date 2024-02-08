@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 
-/** <p>SlideViewerComponent is een grafische component die Slides kan laten zien.</p>
+/** <p>SlideViewerComponent is a graphical component that can show slides.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -19,9 +19,9 @@ import javax.swing.JFrame;
 
 public class SlideViewerComponent extends JComponent {
 		
-	private Slide slide; // de huidige slide
-	private Font labelFont = null; // het font voor labels
-	private Presentation presentation = null; // de presentatie
+	private Slide slide; // current slide
+	private Font labelFont = null; // font for labels
+	private Presentation presentation = null; // the presentation
 	private JFrame frame = null;
 	
 	private static final long serialVersionUID = 227L;
@@ -56,7 +56,7 @@ public class SlideViewerComponent extends JComponent {
 		frame.setTitle(presentation.getTitle());
 	}
 
-// teken de slide
+// draw the slide
 	public void paintComponent(Graphics g) {
 		g.setColor(BGCOLOR);
 		g.fillRect(0, 0, getSize().width, getSize().height);
