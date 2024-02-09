@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-/** <p>Een tekst item.</p>
- * <p>Een TextItem heeft tekenfunctionaliteit.</p>
+/** <p>A tekst item.</p>
+ * <p>A TextItem has drawingfunctionality.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -29,18 +29,18 @@ public class TextItem extends SlideItem {
 	
 	private static final String EMPTYTEXT = "No Text Given";
 
-// een textitem van level level, met als tekst string
+// a textitem of level level, with the text string
 	public TextItem(int level, String string) {
 		super(level);
 		text = string;
 	}
 
-// een leeg textitem
+// an empty textitem
 	public TextItem() {
 		this(0, EMPTYTEXT);
 	}
 
-// Geef de tekst
+// give the text
 	public String getText() {
 		return text == null ? "" : text;
 	}
@@ -52,7 +52,7 @@ public class TextItem extends SlideItem {
 		return attrStr;
 	}
 
-// geef de bounding box van het item
+// give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
 			float scale, Style myStyle) {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
@@ -72,7 +72,7 @@ public class TextItem extends SlideItem {
 		return new Rectangle((int) (myStyle.indent*scale), 0, xsize, ysize );
 	}
 
-// teken het item
+// draw the item
 	public void draw(int x, int y, float scale, Graphics g, 
 			Style myStyle, ImageObserver o) {
 		if (text == null || text.length() == 0) {
