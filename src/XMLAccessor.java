@@ -44,6 +44,7 @@ public class XMLAccessor extends Accessor {
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
+
     
     
     private String getTitle(Element element, String tagName) {
@@ -94,23 +95,20 @@ public class XMLAccessor extends Accessor {
 		if (leveltext != null) {
 			try {
 				level = Integer.parseInt(leveltext);
-			}
-			catch(NumberFormatException x) {
+			} catch(NumberFormatException x) {
 				System.err.println(NFE);
 			}
 		}
+
 		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
+		SlideItemFactory creator = SlideItemFactory.creators.get(type);
+		if (creator == null) {
+			System.err.println(UNKNOWNTYPE);
+			return;
 		}
-		else {
-			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else {
-				System.err.println(UNKNOWNTYPE);
-			}
-		}
+
+		SlideItem slideItem = creator.createSlideItem(level, item.getTextContent());
+		slide.append(slideItem);
 	}
 
 	public void saveFile(Presentation presentation, String filename) throws IOException {

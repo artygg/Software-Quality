@@ -26,13 +26,14 @@ public class SlideViewerComponent extends JComponent {
 	
 	private static final long serialVersionUID = 227L;
 	
-	private static final Color BGCOLOR = Color.white;
-	private static final Color COLOR = Color.black;
-	private static final String FONTNAME = "Dialog";
+	private static final Color BGCOLOR = Constants.DEFAULT_BACKGROUND_COLOR;
+	private static final Color COLOR = Constants.DEFAULT_TEXT_COLOR;
+	private static final String FONTNAME = Constants.DEFAULT_FONT_NAME;
 	private static final int FONTSTYLE = Font.BOLD;
-	private static final int FONTHEIGHT = 10;
-	private static final int XPOS = 1100;
-	private static final int YPOS = 20;
+	private static final int FONTHEIGHT = Constants.DEFAULT_FONT_SiZE;
+	private static final int XPOS = Constants.TITLE_COORD_X;
+	private static final int YPOS = Constants.TITLE_COORD_Y;
+	private SlideRenderer renderer = new DefaultRenderer();
 
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
 		setBackground(BGCOLOR); 
@@ -68,6 +69,11 @@ public class SlideViewerComponent extends JComponent {
 		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
                  presentation.getSize(), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
-		slide.draw(g, area, this);
+		renderer.render(slide, g, area, this);
+	}
+
+	public void setRenderer(SlideRenderer r)
+	{
+		this.renderer = r;
 	}
 }
