@@ -18,15 +18,26 @@ public class Presentation {
 	private ArrayList<Slide> showList = null; // an ArrayList with Slides
 	private int currentSlideNumber = 0; // the slidenummer of the current Slide
 	private SlideViewerComponent slideViewComponent = null; // the viewcomponent of the Slides
+	private static volatile Presentation instance;
 
-	public Presentation() {
+	private Presentation() {
 		slideViewComponent = null;
 		clear();
 	}
-
-	public Presentation(SlideViewerComponent slideViewerComponent) {
+	private Presentation(SlideViewerComponent slideViewerComponent) {
 		this.slideViewComponent = slideViewerComponent;
 		clear();
+	}
+
+	public static Presentation getInstance() {
+		if (instance == null) {
+			synchronized (Presentation.class) {
+				if (instance == null) {
+					instance = new Presentation();
+				}
+			}
+		}
+		return instance;
 	}
 
 	public int getSize() {
@@ -72,7 +83,6 @@ public class Presentation {
 		}
 	}
 
-	// Delete the presentation to be ready for the next one.
 	void clear() {
 		showList = new ArrayList<Slide>();
 		setSlideNumber(-1);
