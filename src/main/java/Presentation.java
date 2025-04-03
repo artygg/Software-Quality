@@ -24,10 +24,6 @@ public class Presentation {
 		slideViewComponent = null;
 		clear();
 	}
-	private Presentation(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
-		clear();
-	}
 
 	public static Presentation getInstance() {
 		if (instance == null) {
