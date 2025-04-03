@@ -14,8 +14,8 @@ import java.util.Vector;
  */
 
 public class Slide {
-	public final static int WIDTH = 1200;
-	public final static int HEIGHT = 800;
+	public final static int WIDTH = Constants.DEFAULT_SLIDE_WIDTH;
+	public final static int HEIGHT = Constants.DEFAULT_SLIDE_HEIGHT;
 	protected String title; // title is saved separately
 	protected Vector<SlideItem> items; // slide items are saved in a Vector
 
@@ -23,7 +23,6 @@ public class Slide {
 		items = new Vector<SlideItem>();
 	}
 
-	// Add a slide item
 	public void append(SlideItem anItem) {
 		items.addElement(anItem);
 	}
@@ -39,8 +38,10 @@ public class Slide {
 	}
 
 	// Create TextItem of String, and add the TextItem 
-	public void append(int level, String message) {
-		append(new TextItem(level, message));
+	public void appendText(int level, String message) {
+//		append(new TextItem(level, message));
+		TextItemFactory creator = new TextItemFactory();
+		append(creator.createSlideItem(level, message));
 	}
 
 	// give the  SlideItem

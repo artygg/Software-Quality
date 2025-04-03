@@ -27,11 +27,11 @@ public class Style {
 	public static void createStyles() {
 		styles = new Style[5];    
 		// The styles are fixed.
-		styles[0] = new Style(0, Color.red,   48, 20);	// style for item-level 0
-		styles[1] = new Style(20, Color.blue,  40, 10);	// style for item-level 1
-		styles[2] = new Style(50, Color.black, 36, 10);	// style for item-level 2
-		styles[3] = new Style(70, Color.black, 30, 10);	// style for item-level 3
-		styles[4] = new Style(90, Color.black, 24, 10);	// style for item-level 4
+		styles[0] = new Style(Constants.STYLE_0_INDENT, Constants.STYLE_0_COLOR,   Constants.STYLE_0_FONTSIZE, Constants.STYLE_0_LEADING);	// style for item-level 0
+		styles[1] = new Style(Constants.STYLE_1_INDENT, Constants.STYLE_1_COLOR,  Constants.STYLE_1_FONTSIZE, Constants.STYLE_1_LEADING);	// style for item-level 1
+		styles[2] = new Style(Constants.STYLE_2_INDENT, Constants.STYLE_2_COLOR, Constants.STYLE_2_FONTSIZE, Constants.STYLE_2_LEADING);	// style for item-level 2
+		styles[3] = new Style(Constants.STYLE_3_INDENT, Constants.STYLE_3_COLOR, Constants.STYLE_3_FONTSIZE, Constants.STYLE_3_LEADING);	// style for item-level 3
+		styles[4] = new Style(Constants.STYLE_4_INDENT, Constants.STYLE_4_COLOR, Constants.STYLE_4_FONTSIZE, Constants.STYLE_4_LEADING);	// style for item-level 4
 	}
 
 	public static Style getStyle(int level) {
