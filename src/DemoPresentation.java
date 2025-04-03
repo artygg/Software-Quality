@@ -44,7 +44,7 @@ class DemoPresentation extends Accessor {
 		slide.appendText(2, "use File->Open from the menu.");
 		slide.appendText(1, " ");
 		slide.appendText(1, "This is the end of the presentation.");
-		slide.append(new BitmapItem(1, "JabberPoint.jpg"));
+		slide.appendItem("image", 1, "JabberPoint.gif");
 		presentation.append(slide);
 	}
 

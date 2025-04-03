@@ -89,26 +89,22 @@ public class XMLAccessor extends Accessor {
 	}
 
 	protected void loadSlideItem(Slide slide, Element item) {
-		int level = 1; // default
-		NamedNodeMap attributes = item.getAttributes();
-		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-		if (leveltext != null) {
+		int level = parseLevel(item);
+		String type = item.getAttribute(KIND);
+		String content = item.getTextContent();
+		slide.appendItem(type, level, content);
+	}
+
+	private int parseLevel(Element item) {
+		String levelText = item.getAttribute(LEVEL);
+		if (levelText != null && !levelText.isEmpty()) {
 			try {
-				level = Integer.parseInt(leveltext);
-			} catch(NumberFormatException x) {
-				System.err.println(NFE);
+				return Integer.parseInt(levelText);
+			} catch (NumberFormatException ex) {
+				throw new IllegalArgumentException("Invalid level value: " + levelText, ex);
 			}
 		}
-
-		String type = attributes.getNamedItem(KIND).getTextContent();
-		SlideItemFactory creator = SlideItemFactory.creators.get(type);
-		if (creator == null) {
-			System.err.println(UNKNOWNTYPE);
-			return;
-		}
-
-		SlideItem slideItem = creator.createSlideItem(level, item.getTextContent());
-		slide.append(slideItem);
+		return 1;
 	}
 
 	public void saveFile(Presentation presentation, String filename) throws IOException {

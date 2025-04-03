@@ -5,7 +5,7 @@ public class NewCommand implements Command {
     private Frame parent;
 
     public NewCommand(Frame parent) {
-        this.presentation = presentation;
+        this.presentation = Presentation.getInstance();;
         this.parent = parent;
     }
 

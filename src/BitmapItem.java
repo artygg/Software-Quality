@@ -1,5 +1,4 @@
-import java.awt.Rectangle;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -57,12 +56,19 @@ public class BitmapItem extends SlideItem {
 				(int) (bufferedImage.getHeight(observer) * scale));
 	}
 
-// draw the image
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
+		if (bufferedImage == null) {
+			g.setColor(Color.RED);
+			g.drawRect(x, y, 100, 100);
+			g.drawString("Image not available", x, y + 50);
+			return;
+		}
 		int width = x + (int) (myStyle.indent * scale);
 		int height = y + (int) (myStyle.leading * scale);
-		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
-                (int) (bufferedImage.getHeight(observer)*scale), observer);
+		g.drawImage(bufferedImage, width, height,
+				(int)(bufferedImage.getWidth(observer)*scale),
+				(int)(bufferedImage.getHeight(observer)*scale),
+				observer);
 	}
 
 	public String toString() {

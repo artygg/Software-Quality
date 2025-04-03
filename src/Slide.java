@@ -27,6 +27,15 @@ public class Slide {
 		items.addElement(anItem);
 	}
 
+	public void appendItem(String type, int level, String content) {
+		SlideItemFactory creator = SlideItemFactory.creators.get(type);
+		if (creator == null) {
+			throw new IllegalArgumentException("Unknown SlideItem type: " + type);
+		}
+		SlideItem newItem = creator.createSlideItem(level, content);
+		items.addElement(newItem);
+	}
+
 	// give the title of the slide
 	public String getTitle() {
 		return title;
@@ -39,9 +48,7 @@ public class Slide {
 
 	// Create TextItem of String, and add the TextItem 
 	public void appendText(int level, String message) {
-//		append(new TextItem(level, message));
-		TextItemFactory creator = new TextItemFactory();
-		append(creator.createSlideItem(level, message));
+		appendItem("text", level, message);
 	}
 
 	// give the  SlideItem
