@@ -1,10 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.sun.org.apache.xml.internal.serializer.Method.TEXT;
-
 public abstract class SlideItemFactory
 {
+    public static final String TEXT = "text";
     public static final Map<String, SlideItemFactory> creators = new HashMap<>();
 
     static {
