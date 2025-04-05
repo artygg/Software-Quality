@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Software-Quality" options="--add-exports java.xml/com.sun.org.apache.xml.internal.serializer=ALL-UNNAMED" />
+      <module name="Software-Quality" options="" />
     </option>
   </component>
 </project>

@@ -1,0 +1,57 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Tests for the NextSlideCommand class.
+ */
+public class NextSlideCommandTest {
+    
+    private Presentation presentation;
+    private NextSlideCommand command;
+    
+    @BeforeEach
+    public void setUp() {
+        presentation = Presentation.getInstance();
+        presentation.clear();
+        
+        // Add some slides for testing
+        for (int i = 0; i < 3; i++) {
+            Slide slide = new Slide();
+            slide.setTitle("Slide " + (i + 1));
+            presentation.addSlide(slide);
+        }
+        
+        command = new NextSlideCommand();
+    }
+    
+    @Test
+    public void testExecuteFromMiddleSlide() {
+        // Start at slide 1
+        presentation.setSlideNumber(1);
+        
+        command.execute();
+        
+        assertEquals(2, presentation.getCurrentSlideNumber(), "Should move to next slide");
+    }
+    
+    @Test
+    public void testExecuteFromFirstSlide() {
+        // Start at first slide
+        presentation.setSlideNumber(0);
+        
+        command.execute();
+        
+        assertEquals(1, presentation.getCurrentSlideNumber(), "Should move to next slide");
+    }
+    
+    @Test
+    public void testExecuteFromLastSlide() {
+        // Start at last slide
+        presentation.setSlideNumber(2);
+        
+        command.execute();
+        
+        assertEquals(2, presentation.getCurrentSlideNumber(), "Should stay at last slide");
+    }
+} 
