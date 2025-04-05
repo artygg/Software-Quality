@@ -28,11 +28,7 @@ public class Slide {
 	}
 
 	public void appendItem(String type, int level, String content) {
-		SlideItemFactory creator = SlideItemFactory.creators.get(type);
-		if (creator == null) {
-			throw new IllegalArgumentException("Unknown SlideItem type: " + type);
-		}
-		SlideItem newItem = creator.createSlideItem(level, content);
+		SlideItem newItem = SlideItemFactory.create(type, level, content);
 		items.addElement(newItem);
 	}
 
