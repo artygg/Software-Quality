@@ -78,13 +78,14 @@ public class XMLAccessor extends Accessor {
 			}
 		} 
 		catch (IOException iox) {
-			System.err.println(iox.toString());
+			ErrorDisplay.showError("Error reading file: " + iox.getMessage(), "File Error");
+			throw iox;
 		}
 		catch (SAXException sax) {
-			System.err.println(sax.getMessage());
+			ErrorDisplay.showError("XML parsing error: " + sax.getMessage(), "XML Error");
 		}
 		catch (ParserConfigurationException pcx) {
-			System.err.println(PCE);
+			ErrorDisplay.showError(PCE, "Parser Error");
 		}	
 	}
 
@@ -133,7 +134,7 @@ public class XMLAccessor extends Accessor {
 						out.print( ( (BitmapItem) slideItem).getName());
 					}
 					else {
-						System.out.println("Ignoring " + slideItem);
+						ErrorDisplay.showWarning("Ignoring unknown slide item type: " + slideItem.getClass().getName());
 					}
 				}
 				out.println("</item>");

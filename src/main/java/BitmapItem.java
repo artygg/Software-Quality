@@ -36,7 +36,7 @@ public class BitmapItem extends SlideItem {
 			}
 		}
 		catch (IOException e) {
-			System.err.println(FILE + imageName + NOTFOUND) ;
+			ErrorDisplay.showError(FILE + imageName + NOTFOUND, "Image Loading Error");
 			bufferedImage = null;
 		}
 	}
