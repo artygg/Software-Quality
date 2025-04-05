@@ -14,12 +14,9 @@ import java.util.Map;
 */
 
 public class KeyController extends KeyAdapter {
-	private Presentation presentation;
 	private Map<Integer, Command> commandMap;
 	public KeyController() {
 		commandMap = new HashMap<>();
-		presentation = Presentation.getInstance();
-
 
 		commandMap.put(KeyEvent.VK_PAGE_DOWN, new NextSlideCommand());
 		commandMap.put(KeyEvent.VK_DOWN, new NextSlideCommand());

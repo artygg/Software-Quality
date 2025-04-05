@@ -29,6 +29,15 @@ public abstract class SlideItem implements Drawable, Bounded, Leveled {
 		return level;
 	}
 
+	/**
+	 * Validates the slide item to ensure it meets all requirements.
+	 * This method should be called before drawing or calculating bounding box.
+	 * @return true if the item is valid, false otherwise
+	 */
+	public boolean validate() {
+		return level >= 0;
+	}
+
 	// Give the bounding box
 	public abstract Rectangle getBoundingBox(Graphics g, 
 			ImageObserver observer, float scale, Style style);

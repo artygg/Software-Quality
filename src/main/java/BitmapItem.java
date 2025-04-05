@@ -31,10 +31,13 @@ public class BitmapItem extends SlideItem {
 		super(level);
 		imageName = name;
 		try {
-			bufferedImage = ImageIO.read(new File(imageName));
+			if (name != null && !name.isEmpty()) {
+				bufferedImage = ImageIO.read(new File(imageName));
+			}
 		}
 		catch (IOException e) {
 			System.err.println(FILE + imageName + NOTFOUND) ;
+			bufferedImage = null;
 		}
 	}
 
@@ -48,8 +51,16 @@ public class BitmapItem extends SlideItem {
 		return imageName;
 	}
 
+	@Override
+	public boolean validate() {
+		return super.validate() && (imageName == null || imageName.isEmpty() || bufferedImage != null);
+	}
+
 // give the  bounding box of the image
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
+		if (!validate()) {
+			return new Rectangle((int) (myStyle.indent * scale), 0, 100, 100);
+		}
 		return new Rectangle((int) (myStyle.indent * scale), 0,
 				(int) (bufferedImage.getWidth(observer) * scale),
 				((int) (myStyle.leading * scale)) + 
@@ -57,7 +68,7 @@ public class BitmapItem extends SlideItem {
 	}
 
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-		if (bufferedImage == null) {
+		if (!validate()) {
 			g.setColor(Color.RED);
 			g.drawRect(x, y, 100, 100);
 			g.drawString("Image not available", x, y + 50);

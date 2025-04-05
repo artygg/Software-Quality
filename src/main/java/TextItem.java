@@ -13,16 +13,6 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-/** <p>A tekst item.</p>
- * <p>A TextItem has drawingfunctionality.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
- */
 
 public class TextItem extends SlideItem {
 	private String text;
@@ -55,6 +45,9 @@ public class TextItem extends SlideItem {
 // give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
 			float scale, Style myStyle) {
+		if (!validate()) {
+			return new Rectangle(0, 0, 0, 0);
+		}
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		int xsize = 0, ysize = (int) (myStyle.leading * scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
@@ -75,7 +68,7 @@ public class TextItem extends SlideItem {
 // draw the item
 	public void draw(int x, int y, float scale, Graphics g, 
 			Style myStyle, ImageObserver o) {
-		if (text == null || text.length() == 0) {
+		if (!validate() || text == null || text.length() == 0) {
 			return;
 		}
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
