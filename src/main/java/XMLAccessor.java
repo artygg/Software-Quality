@@ -56,8 +56,12 @@ public class XMLAccessor extends Accessor {
 	public void loadFile(Presentation presentation, String filename) throws IOException {
 		int slideNumber, itemNumber, max = 0, maxItems = 0;
 		try {
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
-			Document document = builder.parse(new File(filename)); // Create a JDOM document
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document document = builder.parse(new File(filename));
+
 			Element doc = document.getDocumentElement();
 			presentation.setTitle(getTitle(doc, SHOWTITLE));
 
@@ -68,7 +72,7 @@ public class XMLAccessor extends Accessor {
 				Slide slide = new Slide();
 				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
 				presentation.addSlide(slide);
-				
+
 				NodeList slideItems = xmlSlide.getElementsByTagName(ITEM);
 				maxItems = slideItems.getLength();
 				for (itemNumber = 0; itemNumber < maxItems; itemNumber++) {
@@ -76,17 +80,18 @@ public class XMLAccessor extends Accessor {
 					loadSlideItem(slide, item);
 				}
 			}
-		} 
-		catch (IOException iox) {
+		} catch (IOException iox) {
 			ErrorDisplay.showError("Error reading file: " + iox.getMessage(), "File Error");
 			throw iox;
-		}
-		catch (SAXException sax) {
+		} catch (SAXException sax) {
 			ErrorDisplay.showError("XML parsing error: " + sax.getMessage(), "XML Error");
-		}
-		catch (ParserConfigurationException pcx) {
+			// Rethrow as IOException
+			throw new IOException("XML parsing error: " + sax.getMessage(), sax);
+		} catch (ParserConfigurationException pcx) {
 			ErrorDisplay.showError(PCE, "Parser Error");
-		}	
+			// Rethrow as IOException
+			throw new IOException(PCE, pcx);
+		}
 	}
 
 	protected void loadSlideItem(Slide slide, Element item) {

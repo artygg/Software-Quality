@@ -40,6 +40,9 @@ public class Presentation implements SlideManager, NavigationController {
 	@Override
 	public void addSlide(Slide slide) {
 		showList.add(slide);
+		if (currentSlideNumber < 0 && getSize() == 1) {
+			setSlideNumber(0);
+		}
 	}
 
 	@Override
@@ -64,6 +67,7 @@ public class Presentation implements SlideManager, NavigationController {
 	public void clear() {
 		showList = new ArrayList<>();
 		setSlideNumber(-1);
+		setTitle("");
 	}
 
 	@Override
