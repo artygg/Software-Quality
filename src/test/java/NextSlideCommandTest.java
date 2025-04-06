@@ -2,9 +2,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Tests for the NextSlideCommand class.
- */
 public class NextSlideCommandTest {
     
     private Presentation presentation;
@@ -14,8 +11,7 @@ public class NextSlideCommandTest {
     public void setUp() {
         presentation = Presentation.getInstance();
         presentation.clear();
-        
-        // Add some slides for testing
+
         for (int i = 0; i < 3; i++) {
             Slide slide = new Slide();
             slide.setTitle("Slide " + (i + 1));
@@ -27,7 +23,6 @@ public class NextSlideCommandTest {
     
     @Test
     public void testExecuteFromMiddleSlide() {
-        // Start at slide 1
         presentation.setSlideNumber(1);
         
         command.execute();
@@ -37,7 +32,6 @@ public class NextSlideCommandTest {
     
     @Test
     public void testExecuteFromFirstSlide() {
-        // Start at first slide
         presentation.setSlideNumber(0);
         
         command.execute();
@@ -47,7 +41,6 @@ public class NextSlideCommandTest {
     
     @Test
     public void testExecuteFromLastSlide() {
-        // Start at last slide
         presentation.setSlideNumber(2);
         
         command.execute();

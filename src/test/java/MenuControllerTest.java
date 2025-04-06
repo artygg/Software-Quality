@@ -7,6 +7,7 @@ import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 /**
  * Tests for the MenuController class.
@@ -14,12 +15,21 @@ import java.awt.event.ActionEvent;
 public class MenuControllerTest {
     
     private MenuController menuController;
-    private Frame parent;
+    private Frame frame;
     
     @BeforeEach
     public void setUp() {
-        parent = mock(Frame.class);
-        menuController = new MenuController(parent);
+        frame = new Frame();
+        FileOpenController testController = new FileOpenController() {
+            @Override
+            public File chooseFileToOpen(Frame parent) {
+                return null;
+            }
+        };
+
+        OpenCommand testOpenCommand = new OpenCommand(frame, testController);
+
+        menuController = new MenuController(frame, testOpenCommand);
     }
     
     @Test
@@ -69,14 +79,11 @@ public class MenuControllerTest {
     
     @Test
     public void testMenuActionListeners() {
-        // Get the File menu
         Menu fileMenu = menuController.getMenu(0);
         MenuItem openItem = fileMenu.getItem(0);
-        
-        // Create a mock ActionEvent
+
         ActionEvent event = new ActionEvent(openItem, ActionEvent.ACTION_PERFORMED, "Open");
-        
-        // Verify that the action listener is attached
+
         assertDoesNotThrow(() -> openItem.getActionListeners()[0].actionPerformed(event),
             "Action listener should handle the event");
     }

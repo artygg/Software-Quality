@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -5,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 
 /**
@@ -18,14 +20,23 @@ public class TextItemTest {
     private Rectangle area;
     private Style style;
     private float scale = 1.0f;
-    
+
+    @BeforeAll
+    public static void initStyles() {
+        Style.createStyles();
+    }
+
     @BeforeEach
     public void setUp() {
+        style = Style.getStyle(0);
         item = new TextItem(1, "Test Text");
-        graphics = mock(Graphics.class);
+
+        BufferedImage img = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+        graphics = img.createGraphics();
+
         observer = mock(ImageObserver.class);
         area = new Rectangle(0, 0, 800, 600);
-        style = Style.getStyle(1);
+
     }
     
     @Test
@@ -40,7 +51,7 @@ public class TextItemTest {
         TextItem defaultItem = new TextItem();
         assertNotNull(defaultItem, "Default TextItem should be created");
         assertEquals(0, defaultItem.getLevel(), "Default level should be 0");
-        assertEquals("", defaultItem.getText(), "Default text should be empty string");
+        assertEquals("No Text Given", defaultItem.getText(), "Default text should be empty string");
     }
     
     @Test

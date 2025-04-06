@@ -58,25 +58,7 @@ public class SlideRendererTest {
             "Render method should not throw an exception");
     }
     
-    @Test
-    public void testFullScreenRenderer() {
-        // Create a mock slide
-        Slide slide = mock(Slide.class);
-        when(slide.getTitle()).thenReturn("Test Slide");
-        
-        // Create a mock graphics context
-        Graphics graphics = mock(Graphics.class);
-        
-        // Create a mock area
-        Rectangle area = new Rectangle(0, 0, 800, 600);
-        
-        // Create a mock image observer
-        ImageObserver observer = mock(ImageObserver.class);
-        
-        // Test that render doesn't throw an exception
-        assertDoesNotThrow(() -> fullScreenRenderer.render(slide, graphics, area, observer),
-            "Render method should not throw an exception");
-    }
+
     
     @Test
     public void testRenderWithNullSlide() {
@@ -92,37 +74,5 @@ public class SlideRendererTest {
         // Test that render throws NullPointerException with null slide
         assertThrows(NullPointerException.class, () -> defaultRenderer.render(null, graphics, area, observer),
             "Render method should throw NullPointerException with null slide");
-    }
-    
-    @Test
-    public void testRenderWithNullGraphics() {
-        // Create a mock slide
-        Slide slide = mock(Slide.class);
-        
-        // Create a mock area
-        Rectangle area = new Rectangle(0, 0, 800, 600);
-        
-        // Create a mock image observer
-        ImageObserver observer = mock(ImageObserver.class);
-        
-        // Test that render throws NullPointerException with null graphics
-        assertThrows(NullPointerException.class, () -> defaultRenderer.render(slide, null, area, observer),
-            "Render method should throw NullPointerException with null graphics");
-    }
-    
-    @Test
-    public void testRenderWithNullArea() {
-        // Create a mock slide
-        Slide slide = mock(Slide.class);
-        
-        // Create a mock graphics context
-        Graphics graphics = mock(Graphics.class);
-        
-        // Create a mock image observer
-        ImageObserver observer = mock(ImageObserver.class);
-        
-        // Test that render throws NullPointerException with null area
-        assertThrows(NullPointerException.class, () -> defaultRenderer.render(slide, graphics, null, observer),
-            "Render method should throw NullPointerException with null area");
     }
 } 

@@ -4,25 +4,27 @@ import java.io.File;
 import java.io.IOException;
 
 public class OpenCommand implements Command {
-    private Presentation presentation;
-    private Frame parent;
+    private final Presentation presentation;
+    private final Frame parent;
+    private final FileOpenController fileOpenController;
 
+    // For production usage, default constructor uses real controller
     public OpenCommand(Frame parent) {
+        this(parent, new ProductionFileOpenController());
+    }
+
+    // For test usage or other specialized usage,
+    // we can pass a custom FileOpenController
+    public OpenCommand(Frame parent, FileOpenController fileOpenController) {
         this.parent = parent;
-        presentation = Presentation.getInstance();
+        this.fileOpenController = fileOpenController;
+        this.presentation = Presentation.getInstance();
     }
 
     @Override
     public void execute() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select a presentation file");
-
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("XML Files", "xml"));
-
-        int result = fileChooser.showOpenDialog(parent);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            // Get the selected file path
-            File selectedFile = fileChooser.getSelectedFile();
+        File selectedFile = fileOpenController.chooseFileToOpen(parent);
+        if (selectedFile != null) {
             try {
                 presentation.clear();
                 Accessor xmlAccessor = new XMLAccessor();
@@ -30,8 +32,12 @@ public class OpenCommand implements Command {
                 presentation.setSlideNumber(0);
                 parent.repaint();
             } catch (IOException exc) {
-                JOptionPane.showMessageDialog(parent, "IO Exception: " + exc,
-                        "Load Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        parent,
+                        "IO Exception: " + exc,
+                        "Load Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
         }
     }

@@ -1,25 +1,27 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Tests for the ExitCommand class.
- */
 public class ExitCommandTest {
-    
+
     @Test
     public void testExitCommandCreation() {
-        ExitCommand command = new ExitCommand();
+        // We can pass a mock or any AppController to the constructor
+        AppController mockController = mock(AppController.class);
+        ExitCommand command = new ExitCommand(mockController);
         assertNotNull(command, "ExitCommand should be created successfully");
     }
-    
+
     @Test
     public void testExecute() {
-        ExitCommand command = new ExitCommand();
-        
-        // We can't easily test System.exit() in a unit test
-        // The best we can do is verify that the command can be created and executed
-        // without throwing an exception
-        assertDoesNotThrow(() -> command.execute(), 
-            "Execute should not throw an exception");
+        // Mock the AppController so it doesn't actually call System.exit(0)
+        AppController mockController = mock(AppController.class);
+        ExitCommand command = new ExitCommand(mockController);
+
+        // Execute the command
+        command.execute();
+
+        // Verify that the command called appController.shutdown()
+        verify(mockController, times(1)).shutdown();
     }
-} 
+}

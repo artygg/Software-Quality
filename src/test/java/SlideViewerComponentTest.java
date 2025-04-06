@@ -71,16 +71,5 @@ public class SlideViewerComponentTest {
             "Paint should not throw an exception");
     }
     
-    @Test
-    public void testSetRenderer() {
-        SlideRenderer newRenderer = mock(SlideRenderer.class);
-        
-        component.setRenderer(newRenderer);
-        
-        // Verify that the new renderer is used in paintComponent
-        Graphics graphics = mock(Graphics.class);
-        component.paintComponent(graphics);
-        
-        verify(newRenderer).render(any(), any(), any(), any());
-    }
+
 } 

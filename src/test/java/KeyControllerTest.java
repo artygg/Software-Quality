@@ -27,9 +27,18 @@ public class KeyControllerTest {
         Slide slide2 = new Slide();
         slide2.setTitle("Slide 2");
         presentation.addSlide(slide2);
-        
+
+        presentation.setSlideNumber(0);
+
         frame = new JFrame();
-        keyController = new KeyController();
+        AppController noOpController = new AppController() {
+            @Override
+            public void shutdown() {
+
+            }
+        };
+
+        keyController = new KeyController(noOpController);
     }
     
     @Test
