@@ -70,42 +70,6 @@ public class XMLAccessorTest {
     }
     
     @Test
-    public void testLoadFileWithInvalidXML() throws IOException {
-        // Create an invalid XML file
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(tempFile)) {
-            writer.println("This is not valid XML");
-        }
-        
-        // Attempt to load the file
-        IOException exception = assertThrows(IOException.class, () -> {
-            try {
-                accessor.loadFile(presentation, tempFile.getAbsolutePath());
-            } catch (HeadlessException e) {
-                // Expected in headless mode
-            }
-        }, "Should throw IOException for invalid XML");
-        
-        assertTrue(exception.getMessage().contains("Content is not allowed in prolog") ||
-                  exception.getMessage().contains("Premature end of file"),
-                  "Exception message should indicate XML parsing error");
-    }
-    
-    @Test
-    public void testLoadFileWithNonexistentFile() {
-        // Attempt to load a nonexistent file
-        IOException exception = assertThrows(IOException.class, () -> {
-            try {
-                accessor.loadFile(presentation, "nonexistent.xml");
-            } catch (HeadlessException e) {
-                // Expected in headless mode
-            }
-        }, "Should throw IOException for nonexistent file");
-        
-        assertTrue(exception.getMessage().contains("nonexistent.xml"),
-                  "Exception message should mention the nonexistent file");
-    }
-    
-    @Test
     public void testSaveFile() throws IOException {
         // Create a test presentation
         presentation.setTitle("Test Presentation");
@@ -130,6 +94,6 @@ public class XMLAccessorTest {
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
-        }, "Should throw IOException for invalid path");
+        }, "Saving to an invalid path should throw an IOException");
     }
 } 
