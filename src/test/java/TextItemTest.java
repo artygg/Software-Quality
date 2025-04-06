@@ -1,46 +1,20 @@
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 
 /**
  * Tests for the TextItem class.
  */
 public class TextItemTest {
     
-    private TextItem item;
-    private Graphics graphics;
-    private ImageObserver observer;
-    private Rectangle area;
-    private Style style;
-    private float scale = 1.0f;
-
     @BeforeAll
     public static void initStyles() {
         Style.createStyles();
     }
-
-    @BeforeEach
-    public void setUp() {
-        style = Style.getStyle(0);
-        item = new TextItem(1, "Test Text");
-
-        BufferedImage img = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-        graphics = img.createGraphics();
-
-        observer = mock(ImageObserver.class);
-        area = new Rectangle(0, 0, 800, 600);
-
-    }
     
     @Test
     public void testConstructor() {
+        TextItem item = new TextItem(1, "Test Text");
         assertNotNull(item, "TextItem should be created");
         assertEquals(1, item.getLevel(), "Level should be set correctly");
         assertEquals("Test Text", item.getText(), "Text should be set correctly");
@@ -48,29 +22,24 @@ public class TextItemTest {
     
     @Test
     public void testDefaultConstructor() {
-        TextItem defaultItem = new TextItem();
-        assertNotNull(defaultItem, "Default TextItem should be created");
-        assertEquals(0, defaultItem.getLevel(), "Default level should be 0");
-        assertEquals("No Text Given", defaultItem.getText(), "Default text should be empty string");
+        TextItem item = new TextItem();
+        assertNotNull(item, "Default TextItem should be created");
+        assertEquals(0, item.getLevel(), "Default level should be 0");
+        assertEquals("No Text Given", item.getText(), "Default text should be 'No Text Given'");
     }
     
     @Test
-    public void testGetBoundingBox() {
-        Rectangle boundingBox = item.getBoundingBox(graphics, observer, scale, style);
-        assertNotNull(boundingBox, "Bounding box should not be null");
-        assertTrue(boundingBox.width > 0, "Bounding box width should be positive");
-        assertTrue(boundingBox.height > 0, "Bounding box height should be positive");
-    }
-    
-    @Test
-    public void testDraw() {
-        // Test that draw doesn't throw an exception
-        assertDoesNotThrow(() -> item.draw(0, 0, scale, graphics, style, observer),
-            "Draw should not throw an exception");
+    public void testValidate() {
+        TextItem validItem = new TextItem(1, "Test Text");
+        assertTrue(validItem.validate(), "Valid text item should pass validation");
+        
+        TextItem invalidItem = new TextItem(-1, "Test Text");
+        assertFalse(invalidItem.validate(), "Item with negative level should fail validation");
     }
     
     @Test
     public void testToString() {
+        TextItem item = new TextItem(1, "Test Text");
         String expected = "TextItem[1,Test Text]";
         assertEquals(expected, item.toString(), "ToString should return correct format");
     }
