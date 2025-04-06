@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class MenuController extends MenuBar {
 
 	private Frame parent;
