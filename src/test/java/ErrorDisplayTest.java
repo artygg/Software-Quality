@@ -1,18 +1,97 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.jabberpoint.test.TestUtils;
+import java.awt.HeadlessException;
+
 /**
- * Tests for the ErrorDisplay utility class.
- * Note: These tests are limited because JOptionPane.showMessageDialog is a static method
- * that displays a UI dialog, which is difficult to test directly.
+ * Tests for the ErrorDisplay class.
  */
 public class ErrorDisplayTest {
     
+    @BeforeEach
+    public void setUp() {
+        // Setup headless environment
+        TestUtils.setupHeadlessEnvironment();
+    }
+    
+    @AfterEach
+    public void tearDown() {
+        // Reset headless environment
+        TestUtils.resetHeadlessEnvironment();
+    }
+    
     @Test
     public void testErrorDisplayExists() {
-        // This is a simple test to verify that the ErrorDisplay class exists
-        // In a real test environment, we would use a mock or a different approach
         assertNotNull(ErrorDisplay.class, "ErrorDisplay class should exist");
+    }
+    
+    @Test
+    public void testShowError() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showError("Test error");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showError should handle headless mode");
+    }
+    
+    @Test
+    public void testShowErrorWithTitle() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showError("Test error", "Test Title");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showError with title should handle headless mode");
+    }
+    
+    @Test
+    public void testShowWarning() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showWarning("Test warning");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showWarning should handle headless mode");
+    }
+    
+    @Test
+    public void testShowWarningWithTitle() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showWarning("Test warning", "Test Title");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showWarning with title should handle headless mode");
+    }
+    
+    @Test
+    public void testShowInfo() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showInfo("Test info");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showInfo should handle headless mode");
+    }
+    
+    @Test
+    public void testShowInfoWithTitle() {
+        assertDoesNotThrow(() -> {
+            try {
+                ErrorDisplay.showInfo("Test info", "Test Title");
+            } catch (HeadlessException e) {
+                // Expected in headless mode
+            }
+        }, "showInfo with title should handle headless mode");
     }
     
     // In a real test environment, we would use a mock framework like Mockito

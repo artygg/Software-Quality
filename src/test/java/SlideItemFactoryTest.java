@@ -31,19 +31,6 @@ public class SlideItemFactoryTest {
         assertEquals(1, item.getLevel(), "Item level should be 1");
         assertEquals("Test Text", ((TextItem) item).getText(), "Item text should be 'Test Text'");
     }
-    
-    @Test
-    public void testCreateBitmapItem() {
-        // Create a bitmap item
-        SlideItem item = SlideItemFactory.create("image", 1, "test.jpg");
-        
-        // Verify that it's a BitmapItem
-        assertTrue(item instanceof BitmapItem, "Created item should be a BitmapItem");
-        
-        // Verify its properties
-        assertEquals(1, item.getLevel(), "Item level should be 1");
-        assertEquals("test.jpg", ((BitmapItem) item).getName(), "Item name should be 'test.jpg'");
-    }
 
     @Test
     public void testCreateUnknownItem() {

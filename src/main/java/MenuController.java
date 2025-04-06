@@ -3,7 +3,6 @@ import java.awt.*;
 public class MenuController extends MenuBar {
 
 	private Frame parent;
-	private Presentation presentation;
 
 	public MenuController(Frame frame) {
 		this(frame, new OpenCommand(frame)); // Production default
@@ -12,8 +11,7 @@ public class MenuController extends MenuBar {
 	// NEW constructor for injecting a custom OpenCommand
 	public MenuController(Frame frame, OpenCommand customOpenCommand) {
 		parent = frame;
-		presentation = Presentation.getInstance();
-
+    
 		MenuItem menuItem;
 
 		Menu fileMenu = new Menu("File");
