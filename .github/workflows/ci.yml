@@ -36,8 +36,6 @@ jobs:
 
       - name: Build and Test
         run: mvn clean verify -Djava.awt.headless=true -Djava.security.manager=allow
-      - name: Run Tests
-        run: mvn test
 
       - name: Upload Test Results
         if: always()
