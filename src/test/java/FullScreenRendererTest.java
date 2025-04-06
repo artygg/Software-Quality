@@ -3,29 +3,34 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.awt.font.FontRenderContext;
 import java.awt.image.ImageObserver;
 
 /**
  * Tests for the FullScreenRenderer class.
  */
-public class FullScreenRendererTest {
+public class FullScreenRendererTest  {
     
     private FullScreenRenderer renderer;
     private Slide slide;
-    private Graphics graphics;
+    private Graphics2D graphics2D;
     private Rectangle area;
     private ImageObserver observer;
     
     @BeforeEach
     public void setUp() {
+
+        Style.createStyles();
+
         renderer = new FullScreenRenderer();
         slide = new Slide();
         slide.setTitle("Test Slide");
         slide.appendText(1, "Test Text");
-        
-        graphics = mock(Graphics.class);
+
+        graphics2D = mock(Graphics2D.class);
+        FontRenderContext frc = new FontRenderContext(null, false, false);
+        when(graphics2D.getFontRenderContext()).thenReturn(frc);
         area = new Rectangle(0, 0, 800, 600);
         observer = mock(ImageObserver.class);
     }
@@ -33,14 +38,14 @@ public class FullScreenRendererTest {
     @Test
     public void testRender() {
         // Test that render doesn't throw an exception
-        assertDoesNotThrow(() -> renderer.render(slide, graphics, area, observer),
+        assertDoesNotThrow(() -> renderer.render(slide, graphics2D, area, observer),
             "Render should not throw an exception");
     }
     
     @Test
     public void testRenderWithNullSlide() {
         assertThrows(NullPointerException.class, () -> 
-            renderer.render(null, graphics, area, observer),
+            renderer.render(null, graphics2D, area, observer),
             "Render should throw NullPointerException with null slide");
     }
     
@@ -54,7 +59,7 @@ public class FullScreenRendererTest {
     @Test
     public void testRenderWithNullArea() {
         assertThrows(NullPointerException.class, () -> 
-            renderer.render(slide, graphics, null, observer),
+            renderer.render(slide, graphics2D, null, observer),
             "Render should throw NullPointerException with null area");
     }
     
@@ -63,7 +68,7 @@ public class FullScreenRendererTest {
         Slide emptySlide = new Slide();
         emptySlide.setTitle("");
         
-        assertDoesNotThrow(() -> renderer.render(emptySlide, graphics, area, observer),
+        assertDoesNotThrow(() -> renderer.render(emptySlide, graphics2D, area, observer),
             "Render should handle empty slide without throwing exception");
     }
 } 

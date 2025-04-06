@@ -13,6 +13,7 @@ public class StyleTest {
     
     @BeforeEach
     public void setUp() {
+        Style.createStyles();
         style = Style.getStyle(0);
     }
     

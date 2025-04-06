@@ -36,13 +36,22 @@ public class TextItem extends SlideItem {
 	}
 
 // geef de AttributedString voor het item
-	public AttributedString getAttributedString(Style style, float scale) {
-		AttributedString attrStr = new AttributedString(getText());
-		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
-		return attrStr;
+public AttributedString getAttributedString(Style style, float scale) {
+	String txt = getText();
+	if (txt == null) txt = "";
+
+	if (txt.isEmpty()) {
+		return new AttributedString(" ");
+
 	}
 
-// give the bounding box of the item
+	AttributedString attrStr = new AttributedString(txt);
+	attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, txt.length());
+	return attrStr;
+}
+
+
+	// give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
 			float scale, Style myStyle) {
 		if (!validate()) {

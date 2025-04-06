@@ -24,19 +24,19 @@ public class ConstantsTest {
             Class<?> constantsClass = Class.forName("Constants");
             
             // Check WIDTH constant
-            int width = (int) constantsClass.getField("WIDTH").getInt(null);
+            int width = (int) constantsClass.getField("DEFAULT_SLIDE_WIDTH").getInt(null);
             assertTrue(width > 0, "WIDTH should be positive");
             
             // Check HEIGHT constant
-            int height = (int) constantsClass.getField("HEIGHT").getInt(null);
+            int height = (int) constantsClass.getField("DEFAULT_SLIDE_HEIGHT").getInt(null);
             assertTrue(height > 0, "HEIGHT should be positive");
             
             // Check XPOS constant
-            int xpos = (int) constantsClass.getField("XPOS").getInt(null);
+            int xpos = (int) constantsClass.getField("TITLE_COORD_X").getInt(null);
             assertTrue(xpos >= 0, "XPOS should be non-negative");
             
             // Check YPOS constant
-            int ypos = (int) constantsClass.getField("YPOS").getInt(null);
+            int ypos = (int) constantsClass.getField("TITLE_COORD_Y").getInt(null);
             assertTrue(ypos >= 0, "YPOS should be non-negative");
             
             // Check the relationship between WIDTH and XPOS

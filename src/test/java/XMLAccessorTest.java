@@ -17,6 +17,7 @@ public class XMLAccessorTest {
     
     @BeforeEach
     public void setUp() throws IOException {
+
         accessor = new XMLAccessor();
         presentation = Presentation.getInstance();
         presentation.clear();

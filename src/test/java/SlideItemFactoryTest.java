@@ -44,14 +44,12 @@ public class SlideItemFactoryTest {
         assertEquals(1, item.getLevel(), "Item level should be 1");
         assertEquals("test.jpg", ((BitmapItem) item).getName(), "Item name should be 'test.jpg'");
     }
-    
+
     @Test
     public void testCreateUnknownItem() {
-        // Try to create an unknown item type
-        SlideItem item = SlideItemFactory.create("unknown", 1, "Test");
-        
-        // Verify that it's null (unknown type)
-        assertNull(item, "Created item should be null for unknown type");
+        assertThrows(IllegalArgumentException.class, () -> {
+            SlideItemFactory.create("unknown", 1, "Test");
+        }, "Should throw an IllegalArgumentException for unknown type");
     }
     
     @Test

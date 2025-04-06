@@ -16,7 +16,7 @@ import java.util.Vector;
 public class Slide {
 	public final static int WIDTH = Constants.DEFAULT_SLIDE_WIDTH;
 	public final static int HEIGHT = Constants.DEFAULT_SLIDE_HEIGHT;
-	protected String title; // title is saved separately
+	protected String title = ""; // title is saved separately
 	protected Vector<SlideItem> items; // slide items are saved in a Vector
 
 	public Slide() {
