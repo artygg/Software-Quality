@@ -2,9 +2,13 @@ name: Java CI Pipeline
 
 on:
   push:
-    branches: [ "main", "develop" ] # or any DTAP branches you're using
+    branches: [ "main", "development" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "development" ]
+
+env:
+  MAVEN_OPTS: "-Djava.awt.headless=true -Djava.security.manager=allow"
+  DISPLAY: ":99"
 
 jobs:
   build:
@@ -19,13 +23,29 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: 'maven'
 
+      - name: Setup Xvfb
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+          Xvfb :99 -screen 0 1024x768x16 &
+          sleep 3
       - name: Build with Maven
         run: mvn clean install
 
+      - name: Build and Test
+        run: mvn clean verify -Djava.awt.headless=true -Djava.security.manager=allow
       - name: Run Tests
         run: mvn test
 
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: target/surefire-reports/
+          retention-days: 14
       - name: Check Code Quality with SpotBugs
         run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
 
@@ -33,7 +53,40 @@ jobs:
         run: mvn package
 
       - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: my-java-app
           path: target/*.jar
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 6
+          overwrite: true
+
+
+  code-quality:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Run SpotBugs
+        run: mvn com.github.spotbugs:spotbugs-maven-plugin:spotbugs
+
+      - name: Upload SpotBugs Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spotbugs-results
+          path: target/spotbugsXml.xml
+          retention-days: 14
+
+

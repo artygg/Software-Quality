@@ -14,6 +14,6 @@ public class ProductionFileOpenController implements FileOpenController {
         if (result == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         }
-        return null;  // user cancelled
+        return null;
     }
 }

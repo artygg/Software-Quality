@@ -14,7 +14,7 @@ import java.awt.image.ImageObserver;
 */
 
 public abstract class SlideItem implements Drawable, Bounded, Leveled {
-	private int level = 0; // level of the slideitem
+	private int level = 0;
 
 	public SlideItem(int lev) {
 		level = lev;
@@ -29,20 +29,13 @@ public abstract class SlideItem implements Drawable, Bounded, Leveled {
 		return level;
 	}
 
-	/**
-	 * Validates the slide item to ensure it meets all requirements.
-	 * This method should be called before drawing or calculating bounding box.
-	 * @return true if the item is valid, false otherwise
-	 */
 	public boolean validate() {
 		return level >= 0;
 	}
 
-	// Give the bounding box
 	public abstract Rectangle getBoundingBox(Graphics g, 
 			ImageObserver observer, float scale, Style style);
 
-	// Draw the item
 	public abstract void draw(int x, int y, float scale,
                               Graphics g, Style style, ImageObserver observer);
 }

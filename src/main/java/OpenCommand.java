@@ -8,13 +8,10 @@ public class OpenCommand implements Command {
     private final Frame parent;
     private final FileOpenController fileOpenController;
 
-    // For production usage, default constructor uses real controller
     public OpenCommand(Frame parent) {
         this(parent, new ProductionFileOpenController());
     }
 
-    // For test usage or other specialized usage,
-    // we can pass a custom FileOpenController
     public OpenCommand(Frame parent, FileOpenController fileOpenController) {
         this.parent = parent;
         this.fileOpenController = fileOpenController;
