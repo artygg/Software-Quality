@@ -5,10 +5,6 @@ import java.awt.MenuItem;
 import java.awt.MenuShortcut;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-
-import javax.swing.JOptionPane;
-
 /** <p>The controller for the menu</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -21,13 +17,11 @@ import javax.swing.JOptionPane;
 public class MenuController extends MenuBar {
 
 	private Frame parent;
-	private Presentation presentation;
 
 	private static final long serialVersionUID = 227L;
 
 	public MenuController(Frame frame) {
 		parent = frame;
-		presentation = Presentation.getInstance();
 		MenuItem menuItem;
 
 		Menu fileMenu = new Menu("File");
@@ -58,7 +52,6 @@ public class MenuController extends MenuBar {
 		});
 		add(fileMenu);
 
-		// Создаем меню View
 		Menu viewMenu = new Menu("View");
 		viewMenu.add(menuItem = mkMenuItem("Next"));
 		menuItem.addActionListener(new ActionListener() {
