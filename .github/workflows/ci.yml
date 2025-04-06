@@ -2,9 +2,9 @@ name: Java CI Pipeline
 
 on:
   push:
-    branches: [ "main", "develop" ] # or any DTAP branches you're using
+    branches: [ "main", "development" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main", "development" ]
 
 jobs:
   build:
