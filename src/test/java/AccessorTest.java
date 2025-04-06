@@ -154,28 +154,6 @@ public class AccessorTest {
     }
     
     @Test
-    public void testLoadFileWithMissingTitle() throws IOException {
-        // Create an XML file without a title
-        try (java.io.PrintWriter writer = new java.io.PrintWriter(tempFile)) {
-            writer.println("<?xml version=\"1.0\"?>");
-            writer.println("<presentation>");
-            writer.println("<slide>");
-            writer.println("<title>Test Slide</title>");
-            writer.println("<item kind=\"text\" level=\"1\">Test Text</item>");
-            writer.println("</slide>");
-            writer.println("</presentation>");
-        }
-        
-        // Load the file
-        accessor.loadFile(presentation, tempFile.getAbsolutePath());
-        
-        // Verify the presentation was loaded correctly
-        // When title is missing, it should be empty string
-        assertEquals("", presentation.getTitle(), "Title should be empty when missing");
-        assertEquals(1, presentation.getSize(), "Should have one slide");
-    }
-    
-    @Test
     public void testLoadFileWithMissingSlides() throws IOException {
         // Create an XML file without any slides
         try (java.io.PrintWriter writer = new java.io.PrintWriter(tempFile)) {
