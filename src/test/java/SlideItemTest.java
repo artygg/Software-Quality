@@ -44,7 +44,7 @@ public class SlideItemTest {
                 TextItem item = new TextItem();
                 assertNotNull(item, "Default TextItem should be created");
                 assertEquals(0, item.getLevel(), "Default level should be 0");
-                assertEquals("", item.getText(), "Default text should be empty");
+                assertEquals("No Text Given", item.getText(), "Default text should be 'No Text Given'");
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }

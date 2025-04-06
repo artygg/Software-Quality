@@ -71,13 +71,17 @@ public class AccessorTest {
     
     @Test
     public void testLoadNonExistentFile() {
-        assertThrows(IOException.class, () -> {
+        // Attempt to load a nonexistent file
+        IOException exception = assertThrows(IOException.class, () -> {
             try {
                 accessor.loadFile(presentation, "nonexistent.xml");
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
         }, "Loading a non-existent file should throw an IOException");
+        
+        assertTrue(exception.getMessage().contains("nonexistent.xml"),
+                  "Exception message should mention the nonexistent file");
     }
     
     @Test
@@ -88,13 +92,17 @@ public class AccessorTest {
         }
         
         // Attempt to load the file
-        assertThrows(IOException.class, () -> {
+        IOException exception = assertThrows(IOException.class, () -> {
             try {
                 accessor.loadFile(presentation, tempFile.getAbsolutePath());
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
         }, "Loading invalid XML should throw an IOException");
+        
+        assertTrue(exception.getMessage().contains("Content is not allowed in prolog") ||
+                  exception.getMessage().contains("Premature end of file"),
+                  "Exception message should indicate XML parsing error");
     }
     
     @Test
@@ -131,13 +139,16 @@ public class AccessorTest {
         tempFile.createNewFile();
         
         // Attempt to load the file
-        assertThrows(IOException.class, () -> {
+        IOException exception = assertThrows(IOException.class, () -> {
             try {
                 accessor.loadFile(presentation, tempFile.getAbsolutePath());
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
         }, "Loading an empty file should throw an IOException");
+        
+        assertTrue(exception.getMessage().contains("Premature end of file"),
+                  "Exception message should indicate premature end of file");
     }
     
     @Test
@@ -157,8 +168,8 @@ public class AccessorTest {
         accessor.loadFile(presentation, tempFile.getAbsolutePath());
         
         // Verify the presentation was loaded correctly
-        assertEquals("", presentation.getTitle());
-        assertEquals(1, presentation.getSize());
+        assertEquals("", presentation.getTitle(), "Title should be empty when missing");
+        assertEquals(1, presentation.getSize(), "Should have one slide");
     }
     
     @Test

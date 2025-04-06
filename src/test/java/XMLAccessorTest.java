@@ -77,24 +77,32 @@ public class XMLAccessorTest {
         }
         
         // Attempt to load the file
-        assertThrows(IOException.class, () -> {
+        IOException exception = assertThrows(IOException.class, () -> {
             try {
                 accessor.loadFile(presentation, tempFile.getAbsolutePath());
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
         }, "Should throw IOException for invalid XML");
+        
+        assertTrue(exception.getMessage().contains("Content is not allowed in prolog") ||
+                  exception.getMessage().contains("Premature end of file"),
+                  "Exception message should indicate XML parsing error");
     }
     
     @Test
     public void testLoadFileWithNonexistentFile() {
-        assertThrows(IOException.class, () -> {
+        // Attempt to load a nonexistent file
+        IOException exception = assertThrows(IOException.class, () -> {
             try {
                 accessor.loadFile(presentation, "nonexistent.xml");
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
         }, "Should throw IOException for nonexistent file");
+        
+        assertTrue(exception.getMessage().contains("nonexistent.xml"),
+                  "Exception message should mention the nonexistent file");
     }
     
     @Test

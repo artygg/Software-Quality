@@ -43,29 +43,23 @@ public class BitmapItemFactoryTest {
     
     @Test
     public void testCreateItemWithNullName() {
-        assertDoesNotThrow(() -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             try {
-                BitmapItem item = (BitmapItem) factory.createSlideItem(1, null);
-                assertNotNull(item, "BitmapItem should be created with null name");
-                assertEquals(1, item.getLevel(), "Level should be set correctly");
-                assertNull(item.getName(), "Name should be null");
+                factory.createSlideItem(1, null);
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
-        }, "CreateItem with null name should handle headless mode");
+        }, "Should throw IllegalArgumentException when name is null");
     }
     
     @Test
     public void testCreateItemWithNegativeLevel() {
-        assertDoesNotThrow(() -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             try {
-                BitmapItem item = (BitmapItem) factory.createSlideItem(-1, "test.jpg");
-                assertNotNull(item, "BitmapItem should be created with negative level");
-                assertEquals(-1, item.getLevel(), "Level should be set correctly");
-                assertEquals("test.jpg", item.getName(), "Name should be set correctly");
+                factory.createSlideItem(-1, "test.jpg");
             } catch (HeadlessException e) {
                 // Expected in headless mode
             }
-        }, "CreateItem with negative level should handle headless mode");
+        }, "Should throw IllegalArgumentException when level is negative");
     }
 } 
