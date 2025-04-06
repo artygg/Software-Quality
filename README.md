@@ -7,18 +7,9 @@ This project demonstrates software quality principles through a presentation sof
 The project implements a presentation software with the following quality aspects:
 - Clean architecture with separation of concerns
 - Comprehensive unit testing
-- Design patterns (Factory, Command, MVC)
+- Design patterns (Factory method, Command, Strategy)
 - Code quality metrics
 - Continuous Integration
-
-## Quality Metrics
-
-### Code Coverage
-- Overall line coverage: ~85%
-- Core business logic: ~90%
-- Data models: ~85%
-- File operations: ~80%
-- Utility functions: ~85%
 
 ### Testing Strategy
 1. Unit Testing
