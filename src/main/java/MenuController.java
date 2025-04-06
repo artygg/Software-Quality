@@ -16,7 +16,6 @@ public class MenuController extends MenuBar {
 
 		Menu fileMenu = new Menu("File");
 
-		// "Open" uses your injected command
 		fileMenu.add(menuItem = mkMenuItem("Open"));
 		menuItem.addActionListener(e -> customOpenCommand.execute());
 

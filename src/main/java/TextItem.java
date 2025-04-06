@@ -19,23 +19,19 @@ public class TextItem extends SlideItem {
 	
 	private static final String EMPTYTEXT = "No Text Given";
 
-// a textitem of level level, with the text string
 	public TextItem(int level, String string) {
 		super(level);
 		text = string;
 	}
 
-// an empty textitem
 	public TextItem() {
 		this(0, EMPTYTEXT);
 	}
 
-// give the text
 	public String getText() {
 		return text == null ? "" : text;
 	}
 
-// geef de AttributedString voor het item
 public AttributedString getAttributedString(Style style, float scale) {
 	String txt = getText();
 	if (txt == null) txt = "";
@@ -50,8 +46,6 @@ public AttributedString getAttributedString(Style style, float scale) {
 	return attrStr;
 }
 
-
-	// give the bounding box of the item
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
 			float scale, Style myStyle) {
 		if (!validate()) {
@@ -74,7 +68,6 @@ public AttributedString getAttributedString(Style style, float scale) {
 		return new Rectangle((int) (myStyle.indent*scale), 0, xsize, ysize );
 	}
 
-// draw the item
 	public void draw(int x, int y, float scale, Graphics g, 
 			Style myStyle, ImageObserver o) {
 		if (!validate() || text == null || text.length() == 0) {

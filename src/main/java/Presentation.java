@@ -14,10 +14,10 @@ import java.util.ArrayList;
  */
 
 public class Presentation implements SlideManager, NavigationController {
-	private String showTitle; // title of the presentation
-	private ArrayList<Slide> showList = null; // an ArrayList with Slides
-	private int currentSlideNumber = 0; // the slidenummer of the current Slide
-	private SlideViewerComponent slideViewComponent = null; // the viewcomponent of the Slides
+	private String showTitle;
+	private ArrayList<Slide> showList = null;
+	private int currentSlideNumber = 0;
+	private SlideViewerComponent slideViewComponent = null;
 	private static volatile Presentation instance;
 
 	private Presentation() {
@@ -36,7 +36,7 @@ public class Presentation implements SlideManager, NavigationController {
 		return instance;
 	}
 
-	// SlideManager implementation
+
 	@Override
 	public void addSlide(Slide slide) {
 		showList.add(slide);
@@ -80,7 +80,7 @@ public class Presentation implements SlideManager, NavigationController {
 		this.showTitle = title;
 	}
 
-	// NavigationController implementation
+
 	@Override
 	public void nextSlide() {
 		if (currentSlideNumber < (showList.size() - 1)) {

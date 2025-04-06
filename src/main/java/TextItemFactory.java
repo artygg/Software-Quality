@@ -1,7 +1,4 @@
-/**
- * Factory for creating TextItem instances.
- * This factory handles the creation of text-based slide items.
- */
+
 public class TextItemFactory extends SlideItemFactory
 {
     @Override
