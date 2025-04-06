@@ -7,7 +7,7 @@ on:
     branches: [ "main", "development" ]
 
 env:
-  MAVEN_OPTS: "-Djava.awt.headless=true"
+  MAVEN_OPTS: "-Djava.awt.headless=true -Djava.security.manager=allow"
   DISPLAY: ":99"
 
 jobs:
@@ -30,9 +30,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y xvfb
           Xvfb :99 -screen 0 1024x768x16 &
+          sleep 3
 
       - name: Build and Test
-        run: mvn clean verify
+        run: mvn clean verify -Djava.awt.headless=true -Djava.security.manager=allow
 
       - name: Upload Test Results
         if: always()

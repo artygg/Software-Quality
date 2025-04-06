@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +18,9 @@ public class XMLAccessorTest {
     
     @BeforeEach
     public void setUp() throws IOException {
-
+        // Setup headless environment
+        TestUtils.setupHeadlessEnvironment();
+        
         accessor = new XMLAccessor();
         presentation = Presentation.getInstance();
         presentation.clear();
@@ -25,6 +28,12 @@ public class XMLAccessorTest {
         // Create a temporary file for testing
         tempFile = File.createTempFile("test", ".xml");
         tempFile.deleteOnExit();
+    }
+    
+    @AfterEach
+    public void tearDown() {
+        // Reset headless environment
+        TestUtils.resetHeadlessEnvironment();
     }
     
     @Test
